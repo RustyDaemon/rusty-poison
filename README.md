@@ -65,12 +65,10 @@ If you prefer not to display a table of contents, you can disable them site-wide
 Alternatively, you can choose to disable it on a per-post basis by putting the flag in the frontmatter of an individual post.
 
 ```toml
----
 title = "Simple post with no ToC"
 date = 2025-02-16
 hideToc = true
 tags = ["go"]
----
 ```
 
 ### Analytics
@@ -106,12 +104,10 @@ Use series, if you want to combine your content. For example, _Go Tutorial_ or _
 This is done with a custom taxonomy - add `series` to the frontmatter on the content you'd like to group together.
 
 ```toml
----
 title = "How to use series"
 date = 2025-02-16
 series = "How to use structs in Go"
 tags = ["go"]
----
 ```
 
 ### Details
@@ -317,4 +313,3 @@ This theme is licensed under [GNU General Public License v3.0](LICENSE.md).
 
 ---
 If you want to see the changes made to the original theme, [read it here](diff.md).
-```
