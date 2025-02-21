@@ -1,0 +1,21 @@
+name = "Rusty Poison"
+license = "GPL-3.0 License"
+licenselink = "https://github.com/RustyDaemon/rusty-poison/blob/master/LICENSE.md"
+description = "A simple Hugo theme for bloggers. Based on the \"Poison\" theme made by Luke Orth."
+min_version = "0.101.0"
+
+# The home page of the theme, where the source can be found.
+homepage = "https://github.com/RustyDaemon/rusty-poison"
+
+tags = ["blog", "personal", "dark", "dark-mode", "light", "minimal"]
+features = ["blog", "table-of-contents", "dark-mode", "series"]
+
+[author]
+    name = "Rusty Daemon"
+    homepage = "https://github.com/RustyDaemon"
+
+# If Porting existing theme
+[original]
+    author =  "Luke Orth"
+    homepage = "https://lukeorth.com"
+    repo = "https://github.com/lukeorth/poison"

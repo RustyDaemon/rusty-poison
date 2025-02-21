@@ -1,0 +1,11 @@
+<aside class="sidebar">
+    <div class="container sidebar-sticky">
+        {{ if .Site.Params.showDarkLight }}
+          {{ partial "light_dark.html" . }}
+        {{ end }}
+        {{ partial "sidebar/title.html" . }}
+        {{ partial "sidebar/menu.html" . }}
+        {{ partial "sidebar/socials.html" . }}
+        {{ partial "sidebar/copyright.html" . }}
+  </div>
+</aside>
