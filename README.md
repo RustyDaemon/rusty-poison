@@ -47,8 +47,8 @@ theme = "rusty-poison"
 Dark mode is the default for first time visitors, but you can change this in your config file.
 
 <p float="left">
-  <img src="" width="700" />
-  <img src="" width="700" />
+	<img width="700" alt="dark mode" src="https://github.com/user-attachments/assets/52140006-4989-49aa-b710-69169b3c9bb2" />
+	<img width="700" alt="light mode" src="https://github.com/user-attachments/assets/06df74c4-0ce9-4796-9e41-e28d994747db" />
 </p>
 
 ### Table of contents (ToC)
