@@ -114,7 +114,9 @@ tags = ["go"]
 
 There's a shortcode for encoding detail dropdowns into your pages.
 
-![image](https://github.com/user-attachments/assets/)
+
+<img width="250" alt="details-shortcode" src="https://github.com/user-attachments/assets/75bc0cc1-4099-4113-aebb-1a0afd1bfcd2" />
+
 
 Here's the code for the detail dropdown above:
 
