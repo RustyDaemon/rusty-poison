@@ -13,6 +13,9 @@ All the static assets for the site (JS files, CSS, and fonts) are located within
 - [Rusty Poison](#rusty-poison)
   - [Contents](#contents)
   - [Installation](#installation)
+    - [As standalone theme](#as-standalone-theme)
+    - [As submodule](#as-submodule)
+    - [Apply the theme](#apply-the-theme)
   - [Features](#features)
     - [Light/dark mode](#lightdark-mode)
     - [Table of contents (ToC)](#table-of-contents-toc)
@@ -28,12 +31,22 @@ All the static assets for the site (JS files, CSS, and fonts) are located within
 
 ## Installation
 
+There are two ways to install the theme:
+
+### As standalone theme
 Clone the repository into your `themes` directory:
 
 ```sh
 git clone https://github.com/RustyDaemon/rusty-poison themes/rusty-poison
 ```
 
+### As submodule
+
+```sh
+git submodule add https://github.com/RustyDaemon/rusty-poison.git themes/rusty-poison
+```
+
+### Apply the theme
 Set `rusty-poison` as the default theme in your `hugo.toml` file:
 
 ```toml
