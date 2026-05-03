@@ -97,6 +97,7 @@ pagination.pagerSize = 10
   menu = [
     {Name = "posts", URL = "/posts/"},
     {Name = "tags",  URL = "/tags/"},
+    # {Name = "projects", URL = "/projects/", HasChildren = false},
   ]
 
   github_url    = "https://github.com/you"
@@ -156,6 +157,7 @@ tags = ["go", "systems"]
 series = "Some Series"          # custom taxonomy, renders the series list
 hideToc = false                  # opt out of the TOC for this post
 featuredImage = "/images/myimage.png"  # optional hero image
+project = false                # if true, the post is treated as a project 
 ```
 
 ### Customizing colors

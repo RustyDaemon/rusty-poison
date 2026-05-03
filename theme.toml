@@ -2,13 +2,13 @@ name = "Rusty Poison"
 license = "Apache-2.0"
 licenselink = "https://github.com/RustyDaemon/rusty-poison/blob/master/LICENSE.md"
 description = "A modern Hugo theme for dev bloggers."
-version = "0.3.2"
+version = "0.3.3"
 
 homepage = "https://github.com/RustyDaemon/rusty-poison"
 demosite = "https://blog.rustydaemon.com"
 
 tags = ["blog", "personal", "dark", "modern", "dev"]
-features = ["blog", "table-of-contents", "series"]
+features = ["blog", "table-of-contents", "series", "projects", "search"]
 
 [author]
     name = "Rusty Daemon"

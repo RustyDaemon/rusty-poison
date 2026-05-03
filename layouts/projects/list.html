@@ -1,0 +1,46 @@
+{{ define "main" }}
+<header class="home-hero">
+    <div class="prompt">~/projects</div>
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p>{{ . }}</p>{{ end }}
+</header>
+
+{{ $projects := where .Site.RegularPages "Params.project" true }}
+{{ $projects = $projects.ByDate.Reverse }}
+
+{{ if $projects }}
+<ul class="project-grid">
+    {{ range $projects }}
+        <li class="project-card">
+            <a class="project-card__link" href="{{ .RelPermalink }}" aria-label="{{ .Title }}"></a>
+            {{ with .Params.featuredImage }}
+                <div class="project-card__media">
+                    <img src="{{ . }}" alt="" loading="lazy">
+                </div>
+            {{ end }}
+            <div class="project-card__body">
+                <div class="project-card__meta">
+                    <time datetime="{{ .Date.Format `2006-01-02` }}">{{ .Date.Format "Jan 2006" }}</time>
+                    {{ with .Params.repo }}
+                        <a class="project-card__repo" href="{{ . }}" rel="noopener" target="_blank">repo ↗</a>
+                    {{ end }}
+                </div>
+                <h2 class="project-card__title">{{ .Title }}</h2>
+                {{ with (or .Description .Summary) }}
+                    <p class="project-card__summary">{{ . | plainify | truncate 180 }}</p>
+                {{ end }}
+                {{ with .Params.tags }}
+                <ul class="tags project-card__tags">
+                    {{ range . }}
+                        <li><span class="tag">{{ . }}</span></li>
+                    {{ end }}
+                </ul>
+                {{ end }}
+            </div>
+        </li>
+    {{ end }}
+</ul>
+{{ else }}
+    <p style="color: var(--fg-muted);">No projects yet — set <code>project = true</code> in any post's frontmatter to surface it here.</p>
+{{ end }}
+{{ end }}
