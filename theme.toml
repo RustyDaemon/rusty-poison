@@ -1,15 +1,14 @@
 name = "Rusty Poison"
-license = "GPL-3.0 License"
+license = "Apache-2.0"
 licenselink = "https://github.com/RustyDaemon/rusty-poison/blob/master/LICENSE.md"
 description = "A modern Hugo theme for dev bloggers."
-min_version = "0.158.0"
 version = "0.3.0"
 
-# The home page of the theme, where the source can be found.
 homepage = "https://github.com/RustyDaemon/rusty-poison"
+demosite = "https://blog.rustydaemon.com"
 
-tags = ["blog", "personal", "dark", "dark-mode", "light", "modern"]
-features = ["blog", "table-of-contents", "dark-mode", "series"]
+tags = ["blog", "personal", "dark", "modern", "dev"]
+features = ["blog", "table-of-contents", "series"]
 
 [author]
     name = "Rusty Daemon"

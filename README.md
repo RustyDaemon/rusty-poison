@@ -3,7 +3,7 @@
 A bold, distinctive Hugo theme for software developers. Two-column sidebar layout, dark-first with a polished
 light mode, vivid rust-orange accent, modern type.
 
-<img src="_media/dark.png" width="48%" /> <img src="_media/light.png" width="48%" />
+<img src="images/screenshot.png" width="48%" /> <img src="images/screenshot-light.png" width="48%" />
 
 ## Highlights
 
@@ -215,6 +215,6 @@ Click to reveal.
 
 ## License
 
-Licensed under [GNU General Public License v3.0](LICENSE.md).
+Licensed under [Apache-2.0](LICENSE.md).
 
 Fonts and other packages are licensed separately, see their respective documentation for details.
