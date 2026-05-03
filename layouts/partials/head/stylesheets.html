@@ -1,9 +1,15 @@
-{{ $css_bundle := slice (resources.Get "css/poole.css") 
-(resources.Get "css/codeblock.css") 
-(resources.Get "css/hyde.css") 
-(resources.Get "css/rusty-poison.css") 
-(resources.Get "css/fonts.css") 
-(resources.Get "css/custom.css") | resources.Concat
-"css/bundle.css" | minify | fingerprint }}
+{{/* Tailwind v4 pipeline via Hugo's css.TailwindCSS pipe.
 
-<link type="text/css" rel="stylesheet" href="{{ $css_bundle.RelPermalink }}" />
+     We feed main.css (which `@import "tailwindcss"` and our @theme/@layer)
+     through Tailwind, then minify + fingerprint in production. */}}
+
+{{ $entry := resources.Get "css/main.css" }}
+{{ $opts := dict
+  "minify" hugo.IsProduction
+  "optimize" hugo.IsProduction
+}}
+{{ $css := $entry | css.TailwindCSS $opts }}
+{{ if hugo.IsProduction }}
+  {{ $css = $css | fingerprint }}
+{{ end }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" {{ if hugo.IsProduction }}integrity="{{ $css.Data.Integrity }}"{{ end }}>

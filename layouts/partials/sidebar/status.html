@@ -1,0 +1,6 @@
+<div class="panel-status" aria-label="Site status">
+    <div><span class="dot" aria-hidden="true"></span> online</div>
+    <div>built {{ now.Format "2006-01-02 15:04 MST" }}</div>
+    {{ with hugo.CommitHash }}<div>rev {{ . | truncate 7 "" }}</div>{{ end }}
+    {{ with hugo.Version }}<div>hugo {{ . }}</div>{{ end }}
+</div>

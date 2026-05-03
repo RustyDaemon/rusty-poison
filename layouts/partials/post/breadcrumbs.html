@@ -1,0 +1,33 @@
+{{/*
+  Path-style breadcrumbs derived from the source file. For index.md leaf
+  bundles, the filename is omitted and the bundle folder becomes the
+  non-clickable current segment. Example for /content/posts/go-brew-tutorial/index.md:
+    ~/posts/go-brew-tutorial
+  with `~` and `posts` linked, `go-brew-tutorial` shown as current.
+*/}}
+
+{{ with .File }}
+{{ $parts := slice }}
+{{ $dir := strings.TrimSuffix "/" .Dir }}
+{{ if ne $dir "" }}
+  {{ $parts = split $dir "/" }}
+{{ end }}
+{{ $isIndex := eq .LogicalName "index.md" }}
+{{ $linkParts := $parts }}
+{{ $current := .LogicalName }}
+{{ if and $isIndex (gt (len $parts) 0) }}
+  {{ $linkParts = first (sub (len $parts) 1) $parts }}
+  {{ $current = index $parts (sub (len $parts) 1) }}
+{{ end }}
+<nav class="crumbs" aria-label="Breadcrumb">
+    <a href="{{ $.Site.BaseURL }}" class="seg">~</a>
+    {{ $accum := "" }}
+    {{ range $linkParts }}
+        {{ $accum = print $accum "/" . }}
+        <span class="sep">/</span>
+        <a href="{{ $accum }}/" class="seg">{{ . }}</a>
+    {{ end }}
+    <span class="sep">/</span>
+    <span class="seg current">{{ $current }}</span>
+</nav>
+{{ end }}

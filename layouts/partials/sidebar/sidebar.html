@@ -1,11 +1,34 @@
-<aside class="sidebar">
-    <div class="container sidebar-sticky">
-        {{ if .Site.Params.showDarkLight }}
-          {{ partial "light_dark.html" . }}
-        {{ end }}
+<aside class="panel" data-panel>
+    <div class="panel-inner">
         {{ partial "sidebar/title.html" . }}
-        {{ partial "sidebar/menu.html" . }}
-        {{ partial "sidebar/socials.html" . }}
-        {{ partial "sidebar/copyright.html" . }}
-  </div>
+
+        <button type="button" class="panel-toggle" data-panel-toggle aria-label="Toggle navigation" aria-expanded="false" title="Menu">
+            <svg class="panel-icon-open" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+            <svg class="panel-icon-close" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg>
+        </button>
+
+        <div class="panel-drawer">
+            {{ partial "sidebar/menu.html" . }}
+
+            {{ if .Site.Params.showDarkLight }}
+                <button type="button" class="panel-theme-toggle" data-theme-toggle aria-label="Toggle light/dark mode" title="Toggle theme">
+                    <svg class="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    <svg class="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+                    <span>toggle theme</span>
+                </button>
+            {{ end }}
+
+            <div class="panel-bottom">
+                <nav class="panel-section" aria-label="Social links">
+                    <div class="panel-section-label">// links</div>
+                    <div class="panel-socials">
+                        {{ partial "sidebar/socials.html" . }}
+                    </div>
+                </nav>
+
+                <!-- {{ partial "sidebar/status.html" . }} -->
+                {{ partial "sidebar/copyright.html" . }}
+            </div>
+        </div>
+    </div>
 </aside>

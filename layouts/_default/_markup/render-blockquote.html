@@ -1,0 +1,14 @@
+{{- $kind := .AlertType | default "" | lower -}}
+{{- if $kind -}}
+    {{- $variant := $kind -}}
+    {{- if eq $kind "caution" }}{{ $variant = "danger" }}{{ end -}}
+    {{- $title := $kind | title -}}
+    <div class="callout callout--{{ $variant }}" role="note">
+        <strong class="callout-title">{{ $title }}</strong>
+        {{ .Text }}
+    </div>
+{{- else -}}
+    <blockquote {{ with .Attributes.class }}class="{{ . }}"{{ end }}>
+        {{ .Text }}
+    </blockquote>
+{{- end -}}

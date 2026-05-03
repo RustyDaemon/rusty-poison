@@ -1,21 +1,35 @@
-{{ define "main" -}}
-<div class="posts">
-    {{ $frontPageTypes := default (slice "posts") .Site.Params.front_page_content }}
-    {{ range (.Paginate (where .Site.RegularPages "Type" "in" $frontPageTypes)).Pages }}
-    <article class="post">
-        {{ partial "post/info.html" . }}
-        {{ if or (.Site.Params.noSummary) (.Params.noSummary) }}
-        {{ .Content }}
-        {{ else }}
-        {{ .Summary }}
-        {{ if .Truncated }}
-        <div class="read-more-link">
-            <a href="{{ .RelPermalink }}">Read More…</a>
-        </div>
+{{ define "main" }}
+<header class="home-hero">
+    <div class="prompt">$ cat ~/.welcome</div>
+    <h1>{{ .Site.Params.brand | default .Site.Title }}</h1>
+    {{ with .Site.Params.description }}<p>{{ . }}</p>{{ end }}
+</header>
+
+{{ $frontPageTypes := default (slice "posts") .Site.Params.front_page_content }}
+{{ $pages := where .Site.RegularPages "Type" "in" $frontPageTypes }}
+{{ $paginator := .Paginate $pages }}
+
+<ul class="timeline">
+    {{ range $paginator.Pages.GroupByDate "2006" }}
+        <li class="timeline-year">// {{ .Key }}</li>
+        {{ range .Pages }}
+            <li class="timeline-item">
+                <span class="date"><time datetime="{{ .Date.Format `2006-01-02` }}">{{ .Date.Format "Jan 02" }}</time></span>
+                <a href="{{ .RelPermalink }}" class="title">{{ .Title }}</a>
+                {{ with (or .Description .Summary) }}
+                    <p class="summary">{{ . | plainify | truncate 160 }}</p>
+                {{ end }}
+                {{ with .Params.tags }}
+                <ul class="tags">
+                    {{ range . }}
+                        <li><a class="tag" href="{{ "tags/" | absLangURL }}{{ . | urlize }}">{{ . }}</a></li>
+                    {{ end }}
+                </ul>
+                {{ end }}
+            </li>
         {{ end }}
-        {{ end }}
-    </article>
-    {{- end }}
-</div>
+    {{ end }}
+</ul>
+
 {{ partial "pagination.html" . }}
-{{- end }}
+{{ end }}

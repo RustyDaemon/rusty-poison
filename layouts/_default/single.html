@@ -1,9 +1,29 @@
-{{ define "main" -}}
-<div class="post">
-	{{ partial "post/info.html" . }} 
-	{{ .Content }}  
-	{{ partial "post/navigation.html" . }}
-</div>
-{{- end }} {{ define "sidebar" }} {{ if and (not .Params.hideToc) (not
-.Site.Params.hideToc) }} {{ partial "table_of_contents.html" . }} {{ end }} {{
-end }}
+{{ define "main" }}
+<article class="post" data-pagefind-body>
+    {{ partial "post/breadcrumbs.html" . }}
+    {{ partial "post/info.html" . }}
+
+    {{ if and (not .Params.hideToc) (not .Site.Params.hideToc) (gt (len .TableOfContents) 80) }}
+        <details class="toc-inline">
+            <summary>on this page</summary>
+            {{ .TableOfContents }}
+        </details>
+    {{ end }}
+
+    <div class="prose">
+        {{ .Content }}
+    </div>
+
+    <div class="post-foot">
+        {{ partial "post/series.html" . }}
+        {{ partial "post/related.html" . }}
+        {{ partial "post/navigation.html" . }}
+    </div>
+</article>
+{{ end }}
+
+{{ define "toc" }}
+    {{ if and (not .Params.hideToc) (not .Site.Params.hideToc) (gt (len .TableOfContents) 80) }}
+        {{ partial "post/toc.html" . }}
+    {{ end }}
+{{ end }}

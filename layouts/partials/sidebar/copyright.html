@@ -1,5 +1,8 @@
-<p class="footnote">
-<a target="_blank" href="https://gohugo.io">Hugo</a> + <a target="_blank" href="https://github.com/RustyDaemon/rusty-poison">rusty-poison</a>
-    <br><br>
-    &copy; {{ now.Format "2006"}} {{ or .Site.Language.Params.Author.name .Site.Title }}. All rights reserved.
-</p>
+<div class="panel-foot">
+    <div>
+        <a href="https://gohugo.io" target="_blank" rel="noopener">hugo</a>
+        +
+        <a href="https://github.com/RustyDaemon/rusty-poison" target="_blank" rel="noopener">rusty-poison</a>
+    </div>
+    <div>© {{ now.Format "2006" }} {{ or .Site.Language.Params.Author.name .Site.Title }}</div>
+</div>

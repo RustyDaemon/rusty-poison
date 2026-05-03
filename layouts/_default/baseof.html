@@ -1,11 +1,18 @@
 {{ partial "head/head.html" . }}
-    <body class="{{if .Site.Params.layoutReverse}}layout-reverse {{end}}{{if .Site.Params.dark_mode}}dark-theme{{end}}">
-        <div class="wrapper">
-            {{ partial "sidebar/sidebar.html" . }}
-            <main class="content container">
-                {{ block "main" . -}}{{- end }}
-            </main>
-            {{ block "sidebar" . }}{{ end }}
+<body>
+    <a href="#content" class="skip-link">Skip to content</a>
+    <div class="wrapper">
+        {{ partial "sidebar/sidebar.html" . }}
+        <div class="main-column">
+            {{ partial "header/topbar.html" . }}
+            <div class="article-row">
+                <main id="content" class="container">
+                    {{ block "main" . -}}{{- end }}
+                </main>
+                {{ block "toc" . }}{{ end }}
+            </div>
         </div>
-    </body>
+    </div>
+    {{ partial "search/modal.html" . }}
+</body>
 </html>

@@ -1,0 +1,16 @@
+{{ $related := first 3 (.Site.RegularPages.Related .) }}
+{{ if $related }}
+<section class="related-section" aria-labelledby="related-heading">
+    <h2 id="related-heading">// related</h2>
+    <ol class="related-list">
+        {{ range $related }}
+            <li class="related-item">
+                <a href="{{ .RelPermalink }}">
+                    <span class="title">{{ .Title }}</span>
+                    <span class="date">{{ .Date.Format "Jan 02, 2006" }}</span>
+                </a>
+            </li>
+        {{ end }}
+    </ol>
+</section>
+{{ end }}

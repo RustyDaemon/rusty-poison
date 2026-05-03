@@ -1,19 +1,14 @@
-<div class="sidebar-about">
-	<h1 class="brand">
-		{{ if .Site.Params.remote_brand_image }}
-			<a href="{{ .Site.BaseURL }}">
-				<img src="{{ .Site.Params.remote_brand_image }}" alt="brand image" />
-			</a>
-		{{ else if .Site.Params.brand_image }}
-			<a href="{{ .Site.BaseURL }}">
-				<img src="{{ .Site.Params.brand_image }}" alt="brand image" />
-			</a>
-		{{ end }} 
-		
-		{{ if .Site.Params.brand }}
-			<h1>{{ .Site.Params.brand }}</h1>
-		{{ end }}
-	</h1>
-	
-	<p class="lead">{{ with .Site.Params.description }}{{. | safeHTML}}{{end}}</p>
+<div class="panel-brand">
+    {{ with (or .Site.Params.remote_brand_image .Site.Params.brand_image) }}
+        <a href="{{ $.Site.BaseURL }}" aria-label="Home">
+            <img src="{{ . }}" alt="{{ $.Site.Params.brand | default $.Site.Title }}" width="60" height="60">
+        </a>
+    {{ end }}
+    <div class="prompt">~/rustydaemon $</div>
+    {{ with (or .Site.Params.brand .Site.Title) }}
+        <h1><a href="{{ $.Site.BaseURL }}">{{ . }}</a></h1>
+    {{ end }}
+    {{ with .Site.Params.tagline }}
+        <p class="lead">{{ . | safeHTML }}</p>
+    {{ end }}
 </div>

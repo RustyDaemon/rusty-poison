@@ -1,23 +1,14 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"{{with .Site.LanguageCode}} xml:lang="{{.}}" lang="{{.}}"{{end}}>
+<html lang="{{ .Site.Language.Lang | default `en` }}">
 <head>
-    {{ partial "head/scripts.html" . }}
-
-    <!-- Content Type -->
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-
-    <!-- Enable responsiveness on mobile devices-->
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- favicon -->
-    <link rel="icon" href={{ .Site.Params.favicon | default "/favicon.png" }}>
-
-    <!-- META -->
-    {{ partial "head/meta.html" . }}
-
-    <!-- CSS stylesheets -->
-    {{ partial "head/stylesheets.html" . }}
-
-    <!-- Custom style tag for parameterized CSS -->
     {{ partial "head/css.html" . }}
+
+    <link rel="icon" href="{{ .Site.Params.favicon | default `/favicon.png` }}">
+
+    {{ partial "head/meta.html" . }}
+    {{ partial "head/stylesheets.html" . }}
+    {{ partial "head/scripts.html" . }}
 </head>

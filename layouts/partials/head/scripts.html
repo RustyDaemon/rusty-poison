@@ -1,30 +1,25 @@
-{{/* Personal/custom script for light/dark mode and tabs */}}
-{{ $js := slice
-      (resources.Get "js/light_dark.js") }}
+{{/* Bundle the core JS modules. Page-conditional modules (mermaid, katex)
+     are loaded by the loader from within the bundle when their markup
+     is detected. */}}
 
-{{/* Personal/custom scripts for table of contents */}}
+{{ $modules := slice
+  (resources.Get "js/light_dark.js")
+  (resources.Get "js/panel.js")
+  (resources.Get "js/topbar.js")
+  (resources.Get "js/codeblock.js")
+  (resources.Get "js/progress.js")
+  (resources.Get "js/footnotes.js")
+  (resources.Get "js/lightbox.js")
+  (resources.Get "js/mermaid-loader.js")
+  (resources.Get "js/search.js")
+}}
+
 {{ if not .Site.Params.hideToc }}
-    {{ $js = $js | append (resources.Get "js/toc.js") }}
+  {{ $modules = $modules | append (resources.Get "js/toc.js") }}
 {{ end }}
 
-{{/* Personal/custom scripts for codeblocks */}}
-{{ $js = $js | append (resources.Get "js/codeblock.js") }}
-
-{{ $js_bundle := $js | resources.Concat "js/bundle.js" | minify | fingerprint }}
-
-<script defer language="javascript" type="text/javascript" src="{{ $js_bundle.RelPermalink }}"></script>
-
-
-{{ if .Site.Params.plausible }}
-<script defer data-domain="{{ .Site.Params.plausible_domain }}" src="{{ .Site.Params.plausible_script }}"></script>
-{{ end }}
-
+{{ $bundle := $modules | resources.Concat "js/bundle.js" }}
 {{ if hugo.IsProduction }}
-{{ if .Site.Params.umami }}
-<script defer src="{{ .Site.Params.umami_script }}" data-website-id="{{ .Site.Params.umami_website_id }}"></script>
+  {{ $bundle = $bundle | minify | fingerprint }}
 {{ end }}
-{{ end }}
-
-<!-- {{ if hugo.IsProduction -}}
-  {{ template "_internal/google_analytics.html" . -}}
-{{ end -}} -->
+<script defer src="{{ $bundle.RelPermalink }}"></script>

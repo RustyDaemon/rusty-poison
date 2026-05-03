@@ -1,17 +1,41 @@
-{{ define "main" -}}
-<h1 class="title">{{ .Title }}</h1>
-<ul class="entries">
-    {{ range .Pages.GroupByDate "2006" }}
-        <h3 style="text-align: center;">{{ .Key }}</h3>
+{{ define "main" }}
+{{ $isTaxonomy := or (eq .Kind "term") (eq .Kind "taxonomy") }}
+<header class="home-hero">
+    <div class="prompt">~/{{ trim .RelPermalink "/" | default "posts" }}</div>
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p>{{ . }}</p>{{ end }}
+</header>
+
+<ul class="timeline {{ if $isTaxonomy }}timeline--no-date{{ end }}">
+    {{ if $isTaxonomy }}
         {{ range .Pages }}
-            <li>
-                <span class="title">
-                    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-                </span>
-                <span class="published">
-                    <time class="pull-right post-list">{{ .Date | time.Format ":date_long" }}</time>
-                </span>
+            <li class="timeline-item">
+                <a href="{{ .RelPermalink }}" class="title">{{ .Title }}</a>
+                {{ with .Params.tags }}
+                <ul class="tags">
+                    {{ range . }}
+                        <li><a class="tag" href="{{ "tags/" | absLangURL }}{{ . | urlize }}">{{ . }}</a></li>
+                    {{ end }}
+                </ul>
+                {{ end }}
             </li>
+        {{ end }}
+    {{ else }}
+        {{ range .Pages.GroupByDate "2006" }}
+            <li class="timeline-year">// {{ .Key }}</li>
+            {{ range .Pages }}
+                <li class="timeline-item">
+                    <span class="date"><time datetime="{{ .Date.Format `2006-01-02` }}">{{ .Date.Format "Jan 02" }}</time></span>
+                    <a href="{{ .RelPermalink }}" class="title">{{ .Title }}</a>
+                    {{ with .Params.tags }}
+                    <ul class="tags">
+                        {{ range . }}
+                            <li><span class="tag">{{ . }}</span></li>
+                        {{ end }}
+                    </ul>
+                    {{ end }}
+                </li>
+            {{ end }}
         {{ end }}
     {{ end }}
 </ul>

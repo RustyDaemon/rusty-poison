@@ -1,38 +1,94 @@
-/*
-    Original Author: Bramus Van Damme
-    Link to original: https://www.bram.us/2020/01/10/smooth-scrolling-sticky-scrollspy-navigation/
+(function () {
+  var STORAGE_KEY = 'tocCollapsed';
 
-    Most of this code comes courtesy of Bramus Van Damme, with some minor tweaks
-    to get it working for my use case.  Thanks, Bramus!
-*/
+  function setCollapsed(toc, collapsed) {
+    var btn = toc.querySelector('[data-toc-toggle]');
+    if (collapsed) {
+      toc.classList.add('is-collapsed');
+      if (btn) {
+        btn.setAttribute('aria-expanded', 'false');
+        btn.setAttribute('aria-label', 'Expand table of contents');
+        btn.title = 'Expand table of contents';
+      }
+    } else {
+      toc.classList.remove('is-collapsed');
+      if (btn) {
+        btn.setAttribute('aria-expanded', 'true');
+        btn.setAttribute('aria-label', 'Collapse table of contents');
+        btn.title = 'Collapse table of contents';
+      }
+    }
+  }
 
-let activeElement = null;
-window.addEventListener('DOMContentLoaded', () => {
-    const observer = new IntersectionObserver(entries => {
-        if (entries) {
-            const contents = document.getElementById("contents");
-            if (contents) {
-                contents.innerHTML = "Contents";
-            }
-        }
-        entries.forEach(entry => {
-            if (activeElement) {
-                document.querySelectorAll("nav[id='TableOfContents'] li").forEach((node) => {
-                    node.classList.add('inactive');
-                    node.classList.replace('active', 'inactive');
-                });
-            }
-            if (entry.intersectionRatio > 0) {
-                activeElement = entry.target.getAttribute('id');
-            }
-            if (activeElement) {
-                document.querySelector(`nav[id='TableOfContents'] li a[href="#${activeElement}"]`).parentElement.classList.replace('inactive', 'active');
-            }
+  document.addEventListener('DOMContentLoaded', function () {
+    var toc = document.querySelector('[data-toc]');
+    if (toc) {
+      var stored = localStorage.getItem(STORAGE_KEY);
+      if (stored === '1') setCollapsed(toc, true);
+      var btn = toc.querySelector('[data-toc-toggle]');
+      if (btn) {
+        btn.addEventListener('click', function () {
+          var collapsed = !toc.classList.contains('is-collapsed');
+          setCollapsed(toc, collapsed);
+          localStorage.setItem(STORAGE_KEY, collapsed ? '1' : '0');
         });
+      }
+    }
+
+    var tocNavs = document.querySelectorAll('[data-toc] nav#TableOfContents, .toc-inline nav#TableOfContents');
+    if (!tocNavs.length) return;
+    var links = [];
+    tocNavs.forEach(function (nav) {
+      nav.querySelectorAll('a[href^="#"]').forEach(function (a) { links.push(a); });
+    });
+    if (!links.length) return;
+
+    var byId = {};
+    links.forEach(function (a) {
+      var id = decodeURIComponent(a.getAttribute('href').slice(1));
+      (byId[id] = byId[id] || []).push(a.parentElement);
     });
 
-    const post = document.querySelector(".post");
-    post.querySelectorAll("h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]").forEach((section) => {
-        observer.observe(section);
-    });
-});
+    var headings = Array.prototype.slice.call(
+      document.querySelectorAll('.prose :is(h2,h3,h4)[id]')
+    );
+    if (!headings.length) return;
+
+    function clearActive() {
+      links.forEach(function (a) { a.parentElement.classList.remove('active'); });
+    }
+
+    var activeId = null;
+    function update() {
+      var threshold = 120;
+      var current = headings[0];
+      for (var i = 0; i < headings.length; i++) {
+        var rect = headings[i].getBoundingClientRect();
+        if (rect.top - threshold <= 0) {
+          current = headings[i];
+        } else {
+          break;
+        }
+      }
+      if (window.scrollY < threshold) {
+        current = headings[0];
+      }
+      var lis = current && byId[current.id];
+      if (!lis || !lis.length) return;
+      if (current.id === activeId) return;
+      activeId = current.id;
+      clearActive();
+      lis.forEach(function (li) { li.classList.add('active'); });
+    }
+
+    var ticking = false;
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        window.requestAnimationFrame(function () { update(); ticking = false; });
+        ticking = true;
+      }
+    }, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  });
+})();
