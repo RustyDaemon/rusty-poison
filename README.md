@@ -3,6 +3,8 @@
 A bold, distinctive Hugo theme for software developers. Two-column sidebar layout, dark-first with a polished
 light mode, vivid rust-orange accent, modern type.
 
+<img src="_media/dark.png" width="48%" /> <img src="_media/light.png" width="48%" />
+
 ## Highlights
 
 - **Sticky topbar** - search bar with `/` keyboard shortcut, theme toggle, full-width reading-progress bar on post pages.
