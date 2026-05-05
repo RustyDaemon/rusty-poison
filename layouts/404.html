@@ -1,4 +1,240 @@
 {{ define "main" -}}
-<h1>Page not found</h1>
-<p class="lead">Oops! This page took a day off. <a href="{{ .Site.BaseURL }}">Go home</a></p>
+<section class="error-404" aria-labelledby="error-title">
+    <div class="error-404__glyph" aria-hidden="true">
+        <span class="d4 d4-a">4</span>
+        <span class="d4 d4-zero">
+            <svg viewBox="0 0 120 120" role="img" aria-hidden="true">
+                <defs>
+                    <radialGradient id="rp404glow" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="var(--color-accent)" stop-opacity="0.55" />
+                        <stop offset="60%" stop-color="var(--color-accent)" stop-opacity="0.10" />
+                        <stop offset="100%" stop-color="var(--color-accent)" stop-opacity="0" />
+                    </radialGradient>
+                </defs>
+                <circle cx="60" cy="60" r="56" fill="url(#rp404glow)" />
+                <circle cx="60" cy="60" r="42" fill="none" stroke="var(--color-accent)" stroke-width="3" />
+                <circle cx="60" cy="60" r="6" fill="var(--color-accent)" />
+                <path d="M60 18 v18 M60 84 v18 M18 60 h18 M84 60 h18" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" />
+            </svg>
+        </span>
+        <span class="d4 d4-b">4</span>
+    </div>
+
+    <h1 id="error-title" class="error-404__title">The daemon couldn't find that page</h1>
+    <p class="error-404__lede">
+        The path you followed has drifted out of orbit, was renamed, or never existed in the first place.
+    </p>
+
+    <pre class="error-404__terminal" aria-hidden="true"><span class="prompt">rusty@daemon</span><span class="sep">:</span><span class="cwd">~</span><span class="sep">$</span> <span class="cmd">resolve</span> <span class="arg" id="error-404-path">/&hellip;</span>
+<span class="err">resolve: <strong>ENOENT</strong> &mdash; no such file or directory</span>
+<span class="prompt">rusty@daemon</span><span class="sep">:</span><span class="cwd">~</span><span class="sep">$</span> <span class="cmd">suggest</span> --next<span class="cursor">▌</span></pre>
+
+    <nav class="error-404__actions" aria-label="Where to go next">
+        <a class="error-404__btn error-404__btn--primary" href="{{ .Site.BaseURL | relURL }}">
+            <span aria-hidden="true">←</span> Back to home
+        </a>
+        <a class="error-404__btn" href="{{ "/posts/" | relURL }}">All posts</a>
+        <a class="error-404__btn" href="{{ "/tags/" | relURL }}">Browse tags</a>
+        <button class="error-404__btn" type="button" data-search-open>
+            Search <kbd class="error-404__kbd">/</kbd>
+        </button>
+    </nav>
+</section>
+
+<style>
+.error-404 {
+    max-width: 44rem;
+    margin: 3rem auto 4rem;
+    padding: 0 1rem;
+    text-align: center;
+}
+
+.error-404__glyph {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.25rem, 1vw, 0.75rem);
+    line-height: 1;
+    margin-bottom: 1.75rem;
+    user-select: none;
+}
+
+.error-404__glyph .d4 {
+    font-family: var(--font-mono, ui-monospace, "SF Mono", Menlo, Consolas, monospace);
+    font-weight: 800;
+    font-size: clamp(5rem, 16vw, 9rem);
+    color: var(--fg);
+    letter-spacing: -0.04em;
+    text-shadow: 0 0 30px var(--color-accent-glow, rgba(226, 88, 34, 0.18));
+}
+
+.error-404__glyph .d4-a { animation: rp404-flicker 5.5s steps(1, end) infinite; }
+.error-404__glyph .d4-b { animation: rp404-flicker 7s steps(1, end) infinite; animation-delay: -2.4s; }
+
+.error-404__glyph .d4-zero {
+    width: clamp(5rem, 16vw, 9rem);
+    height: clamp(5rem, 16vw, 9rem);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    animation: rp404-spin 16s linear infinite;
+}
+
+.error-404__glyph .d4-zero svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+@keyframes rp404-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+@keyframes rp404-flicker {
+    0%, 92%, 100% { opacity: 1; }
+    93%, 95%      { opacity: 0.35; }
+    94%           { opacity: 0.7; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .error-404__glyph .d4-zero,
+    .error-404__glyph .d4-a,
+    .error-404__glyph .d4-b { animation: none; }
+}
+
+.error-404__title {
+    font-size: clamp(1.5rem, 3.2vw, 2.1rem);
+    margin: 0 0 0.5rem;
+    color: var(--fg);
+    letter-spacing: -0.01em;
+}
+
+.error-404__lede {
+    color: var(--fg-muted);
+    font-size: 1.05rem;
+    margin: 0 auto 1.75rem;
+    max-width: 36rem;
+}
+
+.error-404__terminal {
+    text-align: left;
+    background: var(--color-panel, #0a0b0c);
+    color: var(--color-panel-fg, #e6e6e6);
+    border: 1px solid var(--color-panel-border, #1c1d20);
+    border-radius: 10px;
+    padding: 1rem 1.1rem;
+    font-family: var(--font-mono, ui-monospace, "SF Mono", Menlo, Consolas, monospace);
+    font-size: 0.92rem;
+    line-height: 1.55;
+    overflow-x: auto;
+    margin: 0 auto 2rem;
+    max-width: 38rem;
+    box-shadow: 0 12px 40px -16px var(--color-accent-glow, rgba(226, 88, 34, 0.18));
+}
+
+.error-404__terminal .prompt { color: var(--color-accent); font-weight: 600; }
+.error-404__terminal .sep    { color: var(--color-panel-muted, #8a8a8a); }
+.error-404__terminal .cwd    { color: #9bd0ff; }
+.error-404__terminal .cmd    { color: #f0e68c; }
+.error-404__terminal .arg    { color: var(--color-panel-fg, #e6e6e6); word-break: break-all; }
+.error-404__terminal .err    { color: var(--color-danger, #d65a5a); }
+.error-404__terminal .err strong { color: var(--color-danger, #d65a5a); }
+
+.error-404__terminal .cursor {
+    display: inline-block;
+    margin-left: 0.15rem;
+    color: var(--color-accent);
+    animation: rp404-blink 1.05s steps(1, end) infinite;
+}
+
+@keyframes rp404-blink {
+    0%, 50%   { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+.error-404__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+    margin: 0 0 1.5rem;
+}
+
+.error-404__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.55rem 0.95rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg-raised);
+    color: var(--fg);
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: border-color 0.15s ease, transform 0.15s ease, color 0.15s ease, background-color 0.15s ease;
+}
+
+.error-404__btn:hover,
+.error-404__btn:focus-visible {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    transform: translateY(-1px);
+    outline: none;
+}
+
+.error-404__btn--primary {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: #fff;
+}
+
+.error-404__btn--primary:hover,
+.error-404__btn--primary:focus-visible {
+    background: var(--color-accent-strong, #c0481a);
+    border-color: var(--color-accent-strong, #c0481a);
+    color: #fff;
+}
+
+.error-404__kbd {
+    font-family: var(--font-mono, ui-monospace, "SF Mono", Menlo, Consolas, monospace);
+    font-size: 0.78em;
+    padding: 0.05rem 0.35rem;
+    border: 1px solid var(--border);
+    border-bottom-width: 2px;
+    border-radius: 4px;
+    background: var(--bg-soft);
+    color: var(--fg-muted);
+}
+
+.error-404__hint {
+    color: var(--fg-subtle);
+    font-size: 0.9rem;
+    margin: 0;
+}
+</style>
+
+<script>
+(function () {
+    var pathEl = document.getElementById('error-404-path');
+    if (pathEl) {
+        var p = window.location.pathname + window.location.search;
+        if (p && p !== '/') {
+            pathEl.textContent = p.length > 64 ? p.slice(0, 61) + '...' : p;
+        } else {
+            pathEl.textContent = '/(unknown)';
+        }
+    }
+
+    var btn = document.querySelector('[data-search-open]');
+    if (btn) {
+        btn.addEventListener('click', function () {
+            var ev = new KeyboardEvent('keydown', { key: '/', bubbles: true });
+            document.dispatchEvent(ev);
+        });
+    }
+})();
+</script>
 {{- end }}
