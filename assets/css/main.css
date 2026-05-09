@@ -798,6 +798,16 @@
     text-decoration-color: var(--color-accent);
     text-decoration-thickness: 2px;
   }
+  .prose a.is-external::after {
+    content: "\2197";
+    display: inline-block;
+    margin-left: 0.15em;
+    font-size: 0.8em;
+    color: var(--fg-muted);
+    text-decoration: none;
+    vertical-align: baseline;
+    line-height: 1;
+  }
 
   .prose ul,
   .prose ol {
@@ -1640,6 +1650,10 @@
   .series-badge a:hover {
     text-decoration: underline;
     text-decoration-color: var(--color-accent);
+  }
+  .series-badge .series-progress {
+    color: var(--fg-subtle);
+    margin-left: 0.15rem;
   }
 
   /* ── Taxonomy index sort note + count chip ─────────────── */

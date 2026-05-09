@@ -14,7 +14,7 @@
 {{ end }}
 {{ $isIndex := eq .LogicalName "index.md" }}
 {{ $linkParts := $parts }}
-{{ $current := .LogicalName }}
+{{ $current := strings.TrimSuffix ".md" .LogicalName }}
 {{ if and $isIndex (gt (len $parts) 0) }}
   {{ $linkParts = first (sub (len $parts) 1) $parts }}
   {{ $current = index $parts (sub (len $parts) 1) }}
