@@ -87,7 +87,7 @@ pagination.pagerSize = 10
   brand = "Your Site"
   brand_image = "/images/logo.png"     # optional, lives in /static
   description = "Notes from..."        # default meta description
-  tagline = "// short tagline"         # appears under the brand in the sidebar
+  tagline = "// short tagline"         # appears under the website name in the sidebar
   favicon = "/favicon.png"
   showDarkLight = true                 # show topbar theme toggle
   hideToc = false
@@ -95,15 +95,16 @@ pagination.pagerSize = 10
   front_page_content = ["posts"]       # which sections show on the home page
 
   menu = [
-    {Name = "posts", URL = "/posts/"},
-    {Name = "tags",  URL = "/tags/"},
+    {Name = "posts", URL = "/posts/", HasChildren = false},
+    {Name = "series", URL = "/series/", HasChildren = false},
+    {Name = "tags",  URL = "/tags/", HasChildren = false},
     # {Name = "projects", URL = "/projects/", HasChildren = false},
   ]
 
   github_url    = "https://github.com/you"
   mastodon_url  = "https://mastodon.social/@you"
   # bluesky_url, x_url, linkedin_url, youtube_url, discord_url, instagram_url,
-  # facebook_url, email_url, twitter_url — all optional
+  # facebook_url, email_url, twitter_url - all optional
 
   rss_icon    = true
   rss_section = "posts"

@@ -35,9 +35,6 @@
         </a>
         <a class="error-404__btn" href="{{ "/posts/" | relURL }}">All posts</a>
         <a class="error-404__btn" href="{{ "/tags/" | relURL }}">Browse tags</a>
-        <button class="error-404__btn" type="button" data-search-open>
-            Search <kbd class="error-404__kbd">/</kbd>
-        </button>
     </nav>
 </section>
 
@@ -196,17 +193,6 @@
     background: var(--color-accent-strong, #c0481a);
     border-color: var(--color-accent-strong, #c0481a);
     color: #fff;
-}
-
-.error-404__kbd {
-    font-family: var(--font-mono, ui-monospace, "SF Mono", Menlo, Consolas, monospace);
-    font-size: 0.78em;
-    padding: 0.05rem 0.35rem;
-    border: 1px solid var(--border);
-    border-bottom-width: 2px;
-    border-radius: 4px;
-    background: var(--bg-soft);
-    color: var(--fg-muted);
 }
 
 .error-404__hint {

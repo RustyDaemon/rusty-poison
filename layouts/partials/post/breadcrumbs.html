@@ -19,13 +19,28 @@
   {{ $linkParts = first (sub (len $parts) 1) $parts }}
   {{ $current = index $parts (sub (len $parts) 1) }}
 {{ end }}
+{{ $seriesFallback := "" }}
+{{ with $.Params.series }}
+    {{ $sp := $.Site.GetPage (print "series/" (. | urlize)) }}
+    {{ if $sp }}
+        {{ $seriesFallback = $sp.RelPermalink }}
+    {{ end }}
+{{ end }}
 <nav class="crumbs" aria-label="Breadcrumb">
     <a href="{{ $.Site.BaseURL }}" class="seg">~</a>
     {{ $accum := "" }}
     {{ range $linkParts }}
         {{ $accum = print $accum "/" . }}
+        {{ $url := print $accum "/" }}
+        {{ $target := $.Site.GetPage $url }}
         <span class="sep">/</span>
-        <a href="{{ $accum }}/" class="seg">{{ . }}</a>
+        {{ if $target }}
+            <a href="{{ $url }}" class="seg">{{ . }}</a>
+        {{ else if $seriesFallback }}
+            <a href="{{ $seriesFallback }}" class="seg">{{ . }}</a>
+        {{ else }}
+            <span class="seg">{{ . }}</span>
+        {{ end }}
     {{ end }}
     <span class="sep">/</span>
     <span class="seg current">{{ $current }}</span>

@@ -8,6 +8,14 @@
         {{ if .WordCount }}<span class="sep">·</span><span>{{ .WordCount }} words</span>{{ end }}
     </div>
 
+    {{ with .Params.series }}
+        {{ $seriesURL := print "series/" (. | urlize) }}
+        {{ $seriesPage := $.Site.GetPage $seriesURL }}
+        {{ if $seriesPage }}
+            <div class="series-badge">// part of <a href="{{ $seriesPage.RelPermalink }}">{{ . }}</a></div>
+        {{ end }}
+    {{ end }}
+
     <h1>{{ .Title }}</h1>
 
     {{ with .Description }}<p class="lede">{{ . }}</p>{{ end }}

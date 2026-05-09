@@ -43,7 +43,7 @@
   --color-panel-muted: #8a8a8a;
   --color-panel-border: #1c1d20;
 
-  /* Accent — rust orange */
+  /* Accent - rust orange */
   --color-accent: #e25822;
   --color-accent-soft: #f0a07a;
   --color-accent-strong: #c0481a;
@@ -204,7 +204,7 @@
     height: auto;
   }
 
-  /* Hide scrollbars on touch / mobile — they overlay natively and the
+  /* Hide scrollbars on touch / mobile - they overlay natively and the
      reserved gutter just steals horizontal space. */
   @media (max-width: 55.99em), (hover: none) and (pointer: coarse) {
     html { scrollbar-gutter: auto; }
@@ -1252,6 +1252,14 @@
     margin: 0 0 1rem;
     font-weight: 500;
   }
+  .series-section h2 a {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+  .series-section h2 a:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--color-accent);
+  }
   /* Related: borderless list with mono index, distinct from card-style prev/next */
   .related-list {
     list-style: none;
@@ -1614,6 +1622,63 @@
     letter-spacing: 0.04em;
     vertical-align: middle;
     text-transform: lowercase;
+  }
+
+  /* ── Series badge (post header chip) ───────────────────── */
+  .series-badge {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--fg-muted);
+    margin: 0 0 0.6rem;
+    letter-spacing: 0.04em;
+    text-transform: lowercase;
+  }
+  .series-badge a {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+  .series-badge a:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--color-accent);
+  }
+
+  /* ── Taxonomy index sort note + count chip ─────────────── */
+  .sort-note {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    margin: 0.4rem 0 0;
+    letter-spacing: 0.04em;
+  }
+  .tag-count {
+    display: inline-block;
+    margin-left: 0.55rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--fg-subtle);
+    padding: 0.1rem 0.4rem;
+    border-radius: var(--radius-pill);
+    background: color-mix(in srgb, var(--fg-muted) 10%, transparent);
+    vertical-align: middle;
+    line-height: 1;
+  }
+
+  /* ── Series badge (timeline pill) ──────────────────────── */
+  .badge-series {
+    display: inline-block;
+    margin-left: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    line-height: 1;
+    padding: 0.2rem 0.45rem;
+    border: 1px solid var(--color-accent-soft);
+    border-radius: var(--radius-pill);
+    color: var(--color-accent-soft);
+    background: color-mix(in srgb, var(--color-accent-soft) 10%, transparent);
+    letter-spacing: 0.04em;
+    vertical-align: middle;
+    text-transform: lowercase;
+    font-weight: 400;
   }
 
   /* ── Project card grid ─────────────────────────────────── */

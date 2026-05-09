@@ -1,16 +1,29 @@
 {{ define "main" }}
-{{ $isTaxonomy := or (eq .Kind "term") (eq .Kind "taxonomy") }}
+{{ $isTaxonomyIndex := eq .Kind "taxonomy" }}
+{{ $isTerm := eq .Kind "term" }}
+{{ $isTaxonomy := or $isTerm $isTaxonomyIndex }}
+{{ $isSeriesTerm := and $isTerm (eq .Type "series") }}
 <header class="home-hero">
     <div class="prompt">~/{{ trim .RelPermalink "/" | default "posts" }}</div>
     <h1>{{ .Title }}</h1>
     {{ with .Description }}<p>{{ . }}</p>{{ end }}
+    {{ if $isTaxonomyIndex }}
+        <p class="sort-note">// sorted by post count, most used first</p>
+    {{ end }}
 </header>
 
 <ul class="timeline {{ if $isTaxonomy }}timeline--no-date{{ end }}">
-    {{ if $isTaxonomy }}
+    {{ if $isTaxonomyIndex }}
+        {{ $terms := index .Site.Taxonomies .Data.Plural }}
+        {{ range $terms.ByCount }}
+            <li class="timeline-item">
+                <a href="{{ .Page.RelPermalink }}" class="title">{{ .Page.Title }}<span class="tag-count">{{ .Count }}</span></a>
+            </li>
+        {{ end }}
+    {{ else if $isTerm }}
         {{ range .Pages }}
             <li class="timeline-item">
-                <a href="{{ .RelPermalink }}" class="title">{{ .Title }}</a>
+                <a href="{{ .RelPermalink }}" class="title">{{ .Title }}{{ if and (not $isSeriesTerm) .Params.series }} <span class="badge-series">{{ .Params.series }}</span>{{ end }}</a>
                 {{ with .Params.tags }}
                 <ul class="tags">
                     {{ range . }}
@@ -26,7 +39,7 @@
             {{ range .Pages }}
                 <li class="timeline-item">
                     <span class="date"><time datetime="{{ .Date.Format `2006-01-02` }}">{{ .Date.Format "Jan 02" }}</time></span>
-                    <a href="{{ .RelPermalink }}" class="title">{{ .Title }}{{ if .Params.project }} <span class="badge-project">project</span>{{ end }}</a>
+                    <a href="{{ .RelPermalink }}" class="title">{{ .Title }}{{ if .Params.project }} <span class="badge-project">project</span>{{ end }}{{ with .Params.series }} <span class="badge-series">{{ . }}</span>{{ end }}</a>
                     {{ with .Params.tags }}
                     <ul class="tags">
                         {{ range . }}
