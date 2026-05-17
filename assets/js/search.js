@@ -75,7 +75,7 @@
     }
     loadPagefind().then(function (m) {
       if (!m) {
-        results.innerHTML = '<div class="search-empty">search index not built - run <code>npm run search</code></div>';
+        results.innerHTML = '<div class="search-empty">search index not built - run <code>pnpm run search</code></div>';
         return;
       }
       m.search(q).then(function (s) {

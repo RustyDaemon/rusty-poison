@@ -1601,12 +1601,72 @@
   }
 
   /* ── Mermaid ───────────────────────────────────────────── */
-  pre.mermaid {
-    background: var(--bg-soft);
+  .mermaid-wrap {
     border: 1px solid var(--border-soft);
     border-radius: var(--radius-sm);
+    overflow: hidden;
+    margin: 1.25rem 0;
+  }
+  .mermaid-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    padding: 0.4rem 0.7rem;
+    background: var(--bg-soft);
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .dark-theme .mermaid-toolbar {
+    background: #16171f;
+    border-color: #2a2b36;
+  }
+  pre.mermaid {
+    background: var(--bg-soft);
     padding: 1rem;
+    margin: 0;
     text-align: center;
+    overflow-x: auto;
+  }
+  pre.mermaid svg {
+    max-width: 100%;
+    height: auto;
+  }
+  pre.mermaid.has-panzoom {
+    cursor: grab;
+    text-align: left;
+    overflow: hidden;
+  }
+  pre.mermaid.has-panzoom:active { cursor: grabbing; }
+  pre.mermaid.has-panzoom svg {
+    max-width: none;
+    width: 100%;
+  }
+  .mermaid-error {
+    text-align: left;
+    border-left: 3px solid var(--color-danger);
+    background: color-mix(in srgb, var(--color-danger) 8%, transparent);
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-xs);
+    font-size: 0.85rem;
+  }
+  .mermaid-error-msg {
+    margin: 0 0 0.5rem;
+    color: var(--color-danger);
+    font-family: var(--font-mono);
+  }
+  .mermaid-error details summary {
+    cursor: pointer;
+    color: var(--fg-subtle);
+    font-size: 0.78rem;
+  }
+  .mermaid-error-src {
+    margin: 0.5rem 0 0;
+    padding: 0.6rem 0.8rem;
+    background: var(--bg-raised);
+    border-radius: var(--radius-xs);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    white-space: pre;
     overflow-x: auto;
   }
 

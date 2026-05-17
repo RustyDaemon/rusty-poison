@@ -1,6 +1,5 @@
-{{/* Bundle the core JS modules. Page-conditional modules (mermaid, katex)
-     are loaded by the loader from within the bundle when their markup
-     is detected. */}}
+{{/* Core JS modules (small IIFEs). Mermaid is built as a separate bundle
+     and fetched at runtime only on pages that contain a diagram. */}}
 
 {{ $modules := slice
   (resources.Get "js/light_dark.js")
@@ -18,8 +17,22 @@
   {{ $modules = $modules | append (resources.Get "js/toc.js") }}
 {{ end }}
 
-{{ $bundle := $modules | resources.Concat "js/bundle.js" }}
+{{/* Mermaid + svg-pan-zoom bundled from node_modules into one file.
+     mermaid-loader.js fetches this via a non-static import(window.__mermaidURL)
+     so esbuild leaves it external and the core bundle stays small. */}}
+{{ $mmOpts := dict "target" "es2020" "format" "esm" "minify" hugo.IsProduction }}
+{{ $mermaid := resources.Get "js/_mermaid-bundle.js" | js.Build $mmOpts }}
 {{ if hugo.IsProduction }}
-  {{ $bundle = $bundle | minify | fingerprint }}
+  {{ $mermaid = $mermaid | fingerprint }}
 {{ end }}
-<script defer src="{{ $bundle.RelPermalink }}"></script>
+
+{{/* Core bundle: concat IIFE modules, run through esbuild for minify only. */}}
+{{ $core := $modules | resources.Concat "js/_core.js" }}
+{{ $opts := dict "target" "es2020" "format" "esm" "minify" hugo.IsProduction }}
+{{ $bundle := $core | js.Build $opts }}
+{{ if hugo.IsProduction }}
+  {{ $bundle = $bundle | fingerprint }}
+{{ end }}
+
+<script>window.__mermaidURL = {{ $mermaid.RelPermalink }};</script>
+<script type="module" src="{{ $bundle.RelPermalink }}"></script>

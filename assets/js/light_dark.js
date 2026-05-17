@@ -1,4 +1,8 @@
 (function () {
+  // First setTheme() call is the on-load normalization; mermaid-loader does
+  // its own initial render, so only re-render on genuine later changes.
+  var booted = false;
+
   function setTheme(theme, persist) {
     var html = document.documentElement;
     var body = document.body;
@@ -19,6 +23,10 @@
     if (window.REMARK42 && typeof window.REMARK42.changeTheme === 'function') {
       window.REMARK42.changeTheme(theme);
     }
+    if (booted && typeof window.__mermaidRerender === 'function') {
+      window.__mermaidRerender();
+    }
+    booted = true;
   }
 
   function currentTheme() {
