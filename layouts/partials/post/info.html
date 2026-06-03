@@ -12,13 +12,14 @@
         {{ $seriesURL := print "series/" (. | urlize) }}
         {{ $seriesPage := $.Site.GetPage $seriesURL }}
         {{ if $seriesPage }}
+            {{ $seriesLabel := $seriesPage.LinkTitle }}
             {{ $pages := $seriesPage.Pages.Reverse }}
             {{ $total := len $pages }}
             {{ $idx := 0 }}
             {{ range $i, $p := $pages }}
                 {{ if eq $p.Permalink $.Permalink }}{{ $idx = add $i 1 }}{{ end }}
             {{ end }}
-            <div class="series-badge">// part of <a href="{{ $seriesPage.RelPermalink }}">{{ . }}</a>{{ if and $idx (gt $total 1) }} <span class="series-progress">· part {{ $idx }} of {{ $total }}</span>{{ end }}</div>
+            <div class="series-badge">// part of <a href="{{ $seriesPage.RelPermalink }}">{{ $seriesLabel }}</a>{{ if and $idx (gt $total 1) }} <span class="series-progress">· part {{ $idx }} of {{ $total }}</span>{{ end }}</div>
         {{ end }}
     {{ end }}
 
@@ -29,7 +30,11 @@
     {{ with .Params.tags }}
         <ul class="tags">
             {{ range . }}
-                <li><a class="tag" href="{{ "tags/" | absLangURL }}{{ . | urlize }}">{{ . }}</a></li>
+                {{ $tagTerm := . }}
+                {{ $tagPage := $.Site.GetPage (print "tags/" ($tagTerm | urlize)) }}
+                {{ $tagLabel := $tagTerm }}
+                {{ with $tagPage }}{{ $tagLabel = .LinkTitle }}{{ end }}
+                <li><a class="tag" href="{{ "tags/" | absLangURL }}{{ $tagTerm | urlize }}">{{ $tagLabel }}</a></li>
             {{ end }}
         </ul>
     {{ end }}

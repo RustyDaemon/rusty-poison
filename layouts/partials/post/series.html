@@ -3,7 +3,7 @@
     {{ $series := $.Site.GetPage $seriesURL }}
     {{ if $series }}
     <section class="series-section" aria-labelledby="series-heading">
-        <h2 id="series-heading">// part of <a href="{{ $series.Permalink }}">{{ . }}</a></h2>
+        <h2 id="series-heading">// part of <a href="{{ $series.Permalink }}">{{ $series.LinkTitle }}</a></h2>
         <ul class="series-list">
             {{ range $series.Pages }}
                 <li class="{{ if eq .Permalink $.Permalink }}current{{ end }}">
