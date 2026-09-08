@@ -1,0 +1,11 @@
+{
+  "name": "rusty-poison",
+  "description": "npm dependencies for the rusty-poison Hugo theme. Merged into the project's package.json by `hugo mod npm pack`.",
+  "devDependencies": {
+    "@tailwindcss/cli": "4.2.4",
+    "tailwindcss": "4.2.4",
+    "mermaid": "11.15.0",
+    "svg-pan-zoom": "3.6.2",
+    "pagefind": "1.5.2"
+  }
+}

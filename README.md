@@ -20,8 +20,8 @@ light mode, vivid rust-orange accent, modern type.
 
 ## Requirements
 
-- Hugo extended **≥ 0.128** (uses the built-in `css.TailwindCSS` pipe).
-- Node.js (for the dev dependencies - Tailwind CSS v4 CLI and Pagefind).
+- Hugo extended **≥ 0.158.0** (uses the built-in `css.TailwindCSS` pipe).
+- Node.js (for the npm dependencies - Tailwind CSS v4 CLI, Mermaid and Pagefind).
 
 ## Install
 
@@ -45,8 +45,28 @@ In `hugo.toml`:
 theme = "rusty-poison"
 ```
 
-Add the dev dependencies and a couple of npm scripts to your project's
-`package.json`:
+The theme declares its own npm dependencies in `package.hugo.json`. Merge them
+into your project's `package.json` and install:
+
+```sh
+hugo mod npm pack
+npm install
+```
+
+`hugo mod npm pack` writes the merged dependencies to
+`packages/hugoautogen/package.json` and adds a `workspaces` entry to your root
+`package.json`.
+
+> **Using pnpm?** pnpm ignores the `workspaces` field in `package.json`, so add
+> a `pnpm-workspace.yaml` next to it before `pnpm install`:
+>
+> ```yaml
+> packages:
+>   - packages/hugoautogen
+> ```
+
+Re-run `hugo mod npm pack` after upgrading the theme. Then add the scripts you
+want:
 
 ```json
 {
@@ -54,16 +74,9 @@ Add the dev dependencies and a couple of npm scripts to your project's
     "dev": "hugo server -D",
     "build": "hugo --gc --minify && pagefind --site public",
     "search": "pagefind --site public"
-  },
-  "devDependencies": {
-    "@tailwindcss/cli": "4.2.4",
-    "tailwindcss": "4.2.4",
-    "pagefind": "1.5.2"
   }
 }
 ```
-
-Then `npm install`.
 
 ## Usage
 

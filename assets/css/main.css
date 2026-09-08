@@ -1,7 +1,14 @@
 @import "tailwindcss";
 
-@import "./themes/rusty-poison/assets/css/chroma/light.css" layer(chroma);
-@import "./themes/rusty-poison/assets/css/chroma/dark.css" layer(chroma);
+/* Chroma highlighting themes, inlined by Hugo rather than @import-ed:
+   Tailwind resolves @import paths relative to the project root, which a
+   theme cannot know (it differs between a submodule and a Hugo module
+   install). Piped through resources.ExecuteAsTemplate in
+   layouts/partials/head/stylesheets.html. */
+@layer chroma {
+{{ (resources.Get "css/chroma/light.css").Content }}
+{{ (resources.Get "css/chroma/dark.css").Content }}
+}
 
 /* ─────────────────────────────────────────────────────────────
    Custom dark-mode variant: drives off body.dark-theme so the

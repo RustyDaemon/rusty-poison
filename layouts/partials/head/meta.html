@@ -1,27 +1,16 @@
-{{ .Scratch.Set "title" .Site.Title }}
+{{/* Title and description for this page. Plain template variables - `.Scratch`
+     is a deprecated alias of `.Store` and evaluates to nil on recent Hugo. */}}
 
-{{ .Scratch.Set "publisherIcon" .Site.Params.favicon }}
-{{ if .Site.Params.publisherIcon }}
-    {{ .Scratch.Set "publisherIcon" .Site.Params.publisher_icon }}
-{{ end }}
+{{ $title := .Site.Title }}
+{{ $description := .Description }}
 
 {{ if eq .Kind "home" }}
-  {{ .Scratch.Set "title" $.Site.Params.brand }}
-  {{ .Scratch.Set "description" .Site.Params.Description }}
-{{ else }}
-  {{ .Scratch.Set "description" .Description }}
+  {{ $title = .Site.Params.brand }}
+  {{ $description = .Site.Params.Description }}
 {{ end }}
 
-{{ if .IsSection }}
-  {{ .Scratch.Set "title" ($.Site.Params.brand) }}
-  {{ .Scratch.Add "title" " - " }}
-  {{ .Scratch.Add "title" .LinkTitle }}
-{{ end }}
-
-{{ if .IsPage }}
-  {{ .Scratch.Set "title" ($.Site.Params.brand) }}
-  {{ .Scratch.Add "title" " - " }}
-  {{ .Scratch.Add "title" .LinkTitle }}
+{{ if or .IsSection .IsPage }}
+  {{ $title = printf "%s - %s" .Site.Params.brand .LinkTitle }}
 {{ end }}
 
 {{ "<!-- Open Graph image and Twitter Card metadata -->" | safeHTML }}
@@ -48,18 +37,18 @@
 {{ end -}}
 
 <!-- Title Tags -->
-<title itemprop="name">{{ .Scratch.Get "title" }}</title>
-<meta property="og:title" content={{ .Scratch.Get "title" }} />
-<meta name="twitter:title" content={{ .Scratch.Get "title" }} />
-<meta itemprop="name" content={{ .Scratch.Get "title" }} />
-<meta name="application-name" content={{ .Scratch.Get "title" }} />
+<title itemprop="name">{{ $title }}</title>
+<meta property="og:title" content="{{ $title }}" />
+<meta name="twitter:title" content="{{ $title }}" />
+<meta itemprop="name" content="{{ $title }}" />
+<meta name="application-name" content="{{ $title }}" />
 <meta property="og:site_name" content="{{ .Site.Title }}" />
 
 <!-- Description Tags -->
-<meta name="description" content="{{ .Scratch.Get "description" }}" />
-<meta itemprop="description" content="{{ .Scratch.Get "description" }}" />
-<meta property="og:description" content="{{ .Scratch.Get "description" }}" />
-<meta name="twitter:description" content="{{ .Scratch.Get "description" }}" />
+<meta name="description" content="{{ $description }}" />
+<meta itemprop="description" content="{{ $description }}" />
+<meta property="og:description" content="{{ $description }}" />
+<meta name="twitter:description" content="{{ $description }}" />
 
 <!-- Link Tags -->
 <base href="{{ .Permalink }}" />

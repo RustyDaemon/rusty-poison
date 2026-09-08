@@ -3,7 +3,7 @@
      We feed main.css (which `@import "tailwindcss"` and our @theme/@layer)
      through Tailwind, then minify + fingerprint in production. */}}
 
-{{ $entry := resources.Get "css/main.css" }}
+{{ $entry := resources.Get "css/main.css" | resources.ExecuteAsTemplate "css/main.gen.css" . }}
 {{ $opts := dict
   "minify" hugo.IsProduction
   "optimize" hugo.IsProduction
