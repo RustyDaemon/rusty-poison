@@ -45,6 +45,21 @@ In `hugo.toml`:
 theme = "rusty-poison"
 ```
 
+You also have to allow Hugo to run the Tailwind CLI. Hugo's default
+`security.exec.allow` list does not include `tailwindcss`, so `css.TailwindCSS`
+is denied out of the box and the very first build fails with
+`access denied: "tailwindcss" is not whitelisted in policy "security.exec.allow"`.
+Setting `allow` replaces the defaults, so repeat the stock entries alongside it:
+
+```toml
+[security]
+  [security.exec]
+    allow = ['^(dart-)?sass$', '^go$', '^git$', '^node$', '^postcss$', '^tailwindcss$']
+```
+
+This has to live in the project's own config - Hugo does not merge `[security]`
+from a theme.
+
 The theme declares its own npm dependencies in `package.hugo.json`. Merge them
 into your project's `package.json` and install:
 
@@ -159,6 +174,11 @@ pagination.pagerSize = 10
         [markup.goldmark.extensions.passthrough.delimiters]
           block  = [['\[', '\]'], ['$$', '$$']]
           inline = [['\(', '\)']]
+
+[security]
+  # Required - Hugo's default exec allowlist has no tailwindcss entry.
+  [security.exec]
+    allow = ['^(dart-)?sass$', '^go$', '^git$', '^node$', '^postcss$', '^tailwindcss$']
 ```
 
 ### Front-matter knobs
