@@ -465,6 +465,37 @@
     .topbar > [data-theme-toggle] { display: none; }
   }
 
+  /* The author's other projects (params.projects): a nav row whose "›"
+     becomes a small split square in the project's own two colors, with
+     a muted one-line description under it. */
+  .panel-projects { margin-bottom: 1rem; } /* apart from // links below */
+  .panel-site {
+    --site-a: var(--color-panel-muted);
+    --site-b: var(--color-panel-muted);
+    display: flex;
+    flex-direction: column;
+  }
+  .panel-site + .panel-site { margin-top: 0.35rem; }
+  .panel-site:hover .panel-link { color: var(--color-accent); }
+  .panel-site:hover .panel-link::before { transform: translateX(2px); }
+  .panel-site .panel-link::before {
+    content: "";
+    width: 0.45rem;
+    height: 0.45rem;
+    background: linear-gradient(135deg, var(--site-a) 50%, var(--site-b) 50%);
+  }
+  .panel-site-arrow {
+    font-size: 0.75rem;
+    color: var(--color-panel-muted);
+  }
+  .panel-site-desc {
+    padding-left: 0.95rem; /* under the name, past the square */
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    line-height: 1.4;
+    color: var(--color-panel-muted);
+  }
+
   .panel-socials {
     display: flex;
     flex-wrap: wrap;

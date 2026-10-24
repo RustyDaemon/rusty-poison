@@ -1,0 +1,17 @@
+{{/* The author's other projects (params.projects): sites of their own,
+     not social profiles. */}}
+{{ with .Site.Params.projects }}
+<nav class="panel-section panel-projects" aria-label="Projects">
+    <div class="panel-section-label">// projects</div>
+    {{ range . }}
+        {{ $style := "" }}
+        {{ with .Colors }}
+            {{ $style = printf "--site-a: %s; --site-b: %s" (index . 0) (index . (sub (len .) 1)) }}
+        {{ end }}
+        <a href="{{ .URL }}" class="panel-site" target="_blank" rel="noopener"{{ with $style }} style="{{ . | safeCSS }}"{{ end }}>
+            <span class="panel-link">{{ .Name }} <span class="panel-site-arrow" aria-hidden="true">↗</span></span>
+            {{ with .Description }}<span class="panel-site-desc">{{ . }}</span>{{ end }}
+        </a>
+    {{ end }}
+</nav>
+{{ end }}
