@@ -34,11 +34,11 @@
 
     {{- $jpegSet := slice -}}
     {{- $webpSet := slice -}}
-    {{- range $sizes -}}
-        {{- $r := $img.Resize (printf "%dx" .) -}}
-        {{- $jpegSet = $jpegSet | append (printf "%s %dw" $r.RelPermalink .) -}}
-        {{- with $r.Resize (printf "%dx webp" .) -}}
-            {{- $webpSet = $webpSet | append (printf "%s %dw" .RelPermalink .) -}}
+    {{- range $size := $sizes -}}
+        {{- $r := $img.Resize (printf "%dx" $size) -}}
+        {{- $jpegSet = $jpegSet | append (printf "%s %dw" $r.RelPermalink $size) -}}
+        {{- with $r.Resize (printf "%dx webp" $size) -}}
+            {{- $webpSet = $webpSet | append (printf "%s %dw" .RelPermalink $size) -}}
         {{- end -}}
     {{- end -}}
 
