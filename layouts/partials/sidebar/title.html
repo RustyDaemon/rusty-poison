@@ -6,7 +6,7 @@
     {{ end }}
     <div class="prompt">~/rustydaemon $</div>
     {{ with (or .Site.Params.brand .Site.Title) }}
-        <h1><a href="{{ $.Site.BaseURL }}">{{ . }}</a></h1>
+        <div class="panel-brand-title"><a href="{{ $.Site.BaseURL }}">{{ . }}</a></div>
     {{ end }}
     {{ with .Site.Params.tagline }}
         <p class="lead">{{ . | safeHTML }}</p>
