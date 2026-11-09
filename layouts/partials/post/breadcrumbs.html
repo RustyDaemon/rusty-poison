@@ -12,9 +12,9 @@
 {{ if ne $dir "" }}
   {{ $parts = split $dir "/" }}
 {{ end }}
-{{ $isIndex := eq .LogicalName "index.md" }}
+{{ $isIndex := eq .ContentBaseName (path.Base (strings.TrimSuffix "/" .Dir)) }}
 {{ $linkParts := $parts }}
-{{ $current := strings.TrimSuffix ".md" .LogicalName }}
+{{ $current := .ContentBaseName }}
 {{ if and $isIndex (gt (len $parts) 0) }}
   {{ $linkParts = first (sub (len $parts) 1) $parts }}
   {{ $current = index $parts (sub (len $parts) 1) }}
@@ -27,12 +27,12 @@
     {{ end }}
 {{ end }}
 <nav class="crumbs" aria-label="Breadcrumb">
-    <a href="{{ $.Site.BaseURL }}" class="seg">~</a>
+    <a href="{{ $.Site.Home.RelPermalink }}" class="seg">~</a>
     {{ $accum := "" }}
     {{ range $linkParts }}
         {{ $accum = print $accum "/" . }}
-        {{ $url := print $accum "/" }}
-        {{ $target := $.Site.GetPage $url }}
+        {{ $url := print $.Site.Home.RelPermalink (strings.TrimPrefix "/" $accum) "/" }}
+        {{ $target := $.Site.GetPage (print $accum "/") }}
         <span class="sep">/</span>
         {{ if $target }}
             <a href="{{ $url }}" class="seg">{{ . }}</a>
