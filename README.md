@@ -121,6 +121,7 @@ pagination.pagerSize = 10
   hideToc = false
 
   front_page_content = ["posts"]       # which sections show on the home page
+  show_summary_in_section_and_taxonomy_lists = false  # show post summaries in section lists (/posts/) and tag/series lists (the home page always shows them)
 
   menu = [
     {Name = "posts", URL = "/posts/", HasChildren = false},
