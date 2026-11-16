@@ -116,6 +116,7 @@ pagination.pagerSize = 10
   brand_image = "/images/logo.png"     # optional, lives in /static
   description = "Notes from..."        # default meta description
   tagline = "// short tagline"         # appears under the website name in the sidebar
+  copyright_start_year = 2016          # optional, shows "2016–<current year>" in the footer
   favicon = "/favicon.png"
   showDarkLight = true                 # show topbar theme toggle
   hideToc = false

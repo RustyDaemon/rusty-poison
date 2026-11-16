@@ -4,5 +4,10 @@
         +
         <a href="https://github.com/RustyDaemon/rusty-poison" target="_blank" rel="noopener">rusty-poison</a>
     </div>
-    <div>© {{ now.Format "2006" }} {{ or .Site.Language.Params.Author.name .Site.Title }}</div>
+    {{ $year := now.Year }}
+    {{ $years := string $year }}
+    {{ with .Site.Params.copyright_start_year }}
+        {{ if lt (int .) $year }}{{ $years = printf "%d–%d" (int .) $year }}{{ end }}
+    {{ end }}
+    <div>© {{ $years }} {{ or .Site.Language.Params.Author.name .Site.Title }}</div>
 </div>
