@@ -6,3 +6,19 @@
         <a href="{{ $url }}" class="panel-link {{ if and (ne $.RelPermalink "/") (hasPrefix $.RelPermalink $url) }}active{{ end }}">{{ .Name }}</a>
     {{ end }}
 </nav>
+
+{{ if hugo.IsMultilingual }}
+    <nav class="panel-section" aria-label="Languages">
+        <div class="panel-section-label">// lang</div>
+        {{ range hugo.Sites }}
+            {{ $lang := .Language.Lang }}
+            {{ if ne $lang $.Site.Language.Lang }}
+                {{ $url := .Home.RelPermalink }}
+                {{ range $.Translations }}
+                    {{ if eq .Language.Lang $lang }}{{ $url = .RelPermalink }}{{ end }}
+                {{ end }}
+                <a href="{{ $url }}" class="panel-link" hreflang="{{ $lang }}" lang="{{ $lang }}">{{ or .Language.Label $lang }}</a>
+            {{ end }}
+        {{ end }}
+    </nav>
+{{ end }}
