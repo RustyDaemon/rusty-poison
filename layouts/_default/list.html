@@ -33,6 +33,11 @@
                         <span class="badge-series">{{ $seriesLabel }}</span>
                     {{ end }}
                 </a>
+                {{ if $.Site.Params.show_summary_in_section_and_taxonomy_lists }}
+                    {{ with (or .Description .Summary) }}
+                        <p class="summary">{{ . | plainify | truncate 160 }}</p>
+                    {{ end }}
+                {{ end }}
                 {{ with .Params.tags }}
                 <ul class="tags">
                     {{ range . }}
@@ -62,6 +67,11 @@
                             <span class="badge-series">{{ $seriesLabel }}</span>
                         {{ end }}
                     </a>
+                    {{ if $.Site.Params.show_summary_in_section_and_taxonomy_lists }}
+                        {{ with (or .Description .Summary) }}
+                            <p class="summary">{{ . | plainify | truncate 160 }}</p>
+                        {{ end }}
+                    {{ end }}
                     {{ with .Params.tags }}
                     <ul class="tags">
                         {{ range . }}
