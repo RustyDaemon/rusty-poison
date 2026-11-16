@@ -15,6 +15,7 @@ light mode, vivid rust-orange accent, modern type.
 - **Smart TOC** - sticky collapsible. Scroll-tracked active section highlighted in accent.
 - **Related posts** weighted on tags + series.
 - **Reading-experience extras** - reading progress bar, footnote popovers, image lightbox, GitHub-style callouts.
+- **Language switcher** - on multilingual sites, the sidebar links to the current page translation, or to the other language home page.
 - **Rich content** - math passthrough (KaTeX-ready), Mermaid
   diagrams, image-optimization.
 
