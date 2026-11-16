@@ -4,7 +4,7 @@
             <img src="{{ . }}" alt="{{ $.Site.Params.brand | default $.Site.Title }}" width="60" height="60">
         </a>
     {{ end }}
-    <div class="prompt">~/rustydaemon $</div>
+    <div class="prompt">{{ .Site.Params.prompt | default "~/rustydaemon $" }}</div>
     {{ with (or .Site.Params.brand .Site.Title) }}
         <div class="panel-brand-title"><a href="{{ $.Site.BaseURL }}">{{ . }}</a></div>
     {{ end }}

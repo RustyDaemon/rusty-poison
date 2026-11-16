@@ -116,6 +116,7 @@ pagination.pagerSize = 10
   brand_image = "/images/logo.png"     # optional, lives in /static
   description = "Notes from..."        # default meta description
   tagline = "// short tagline"         # appears under the website name in the sidebar
+  prompt = "~/you $"                   # prompt shown above the website name in the sidebar
   favicon = "/favicon.png"
   showDarkLight = true                 # show topbar theme toggle
   hideToc = false
